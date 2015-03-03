@@ -28,6 +28,38 @@
         <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
         <link rel="stylesheet" type="text/css" href="css/index.css" />
         <title>Hello World</title>
+
+        <script type="text/javascript" language="javascript">
+            function validate() {
+                    var num = document.getElementByID("ccbox").value;
+                    var valid = false;
+                    
+                    var ncheck =0, ndig = 0; even = false;
+
+                    for(var n = num.lengh -1; n >= 0; --n){
+                        var cdig = num.charAt(n);
+                        ndig = ParseInt(cdig,10);
+
+                        if(even){
+                            if( (ndig *= 2) > 9 ){
+                                ndig -= 9;
+                            }//end ndig > 9
+                        }//end is even
+
+                        ncheck += ndig;
+                        even = !even;
+                    }//end for
+                    valid = ( (ncheck % 10) == 0);
+
+                    if(valid)
+                        document.getElementByID("result").value = "VALID CARD NUMBER";
+                    if(!valid)
+                        document.getElementByID("result").value = "INVALID CARD NUMBER";
+
+
+                }   //end function 
+        </script>
+
     </head>
     <body>
         <div class="app">
@@ -36,11 +68,24 @@
                 <p class="event listening">Connecting to Device</p>
                 <p class="event received">Device is Ready</p>
             </div>
+            <br>
+            <h3 id="entercard">Enter Card Number</h3>
+            <form id="ccvalidate">
+                <input id="ccbox" maxlength="16" type="text" size="16" placeholder="Your Card #">
+                <br><br>
+                <button id="ccbut" type="submit" onclick="validate()">Validate</button>
+            </form>
+            <br><br>
+            <div>
+                <textarea id="result" rows="1" cols="20" placeholder="Result">
+                </textarea>
+            </div>
         </div>
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
         <script type="text/javascript">
             app.initialize();
         </script>
+
     </body>
 </html>
